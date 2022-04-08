@@ -21,21 +21,27 @@
             </li>
         </ul>
         <ul class="flex items-center">
-            @if (auth()->user())
+            @auth
                 <li>
-                    <a href="/" class="p-3">Profile</a>
+                    <a href="/" class="p-3">{{ auth()->user()->username }}</a>
                 </li>
                 <li>
-                    <a href="" class="p-3">Logout</a>
+                    <form action="{{ route('logout') }}" method="post" class="p-3 inline">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
+
                 </li>
-            @else
+            @endauth
+
+            @guest
                 <li>
-                    <a href="" class="p-3">Login</a>
+                    <a href="{{ route('login') }}" class="p-3">Login</a>
                 </li>
                 <li>
                     <a href="{{ route('register')}}" class="p-3">Register</a>
                 </li>
-            @endif
+            @endguest
         </ul>
 
     </nav>
